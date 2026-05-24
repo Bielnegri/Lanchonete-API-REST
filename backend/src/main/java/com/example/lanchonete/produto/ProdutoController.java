@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/produtos")
-@CrossOrigin(origins = "*")
 public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
@@ -34,6 +33,12 @@ public class ProdutoController {
 
     @PostMapping("/form")
     public ResponseEntity<Produto> salvar(@RequestBody @Valid ProdutoDTO dto) {
+        Produto novo = produtoService.salvarOuAtualizar(dto);
+        return ResponseEntity.ok(novo);
+    }
+
+    @PutMapping("/form")
+    public ResponseEntity<Produto> alterar(@RequestBody @Valid ProdutoDTO dto) {
         Produto novo = produtoService.salvarOuAtualizar(dto);
         return ResponseEntity.ok(novo);
     }
