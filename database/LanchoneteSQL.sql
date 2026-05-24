@@ -16,3 +16,13 @@ ALTER TABLE produto
 MODIFY COLUMN id_produto BIGINT AUTO_INCREMENT;
 
 SELECT * FROM produto;
+
+DELIMITER \\
+
+CREATE PROCEDURE sp_buscar_por_categoria(IN categoria_in VARCHAR(50))
+BEGIN
+	SELECT *
+    FROM produto
+	WHERE categoria LIKE categoria_in;
+END \\
+DELIMITER ;
