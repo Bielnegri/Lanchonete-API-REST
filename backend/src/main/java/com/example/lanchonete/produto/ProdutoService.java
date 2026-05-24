@@ -3,9 +3,9 @@ package com.example.lanchonete.produto;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -40,7 +40,9 @@ public class ProdutoService {
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com id: " + id));
     }
 
+    @Transactional(readOnly = true)
     public List<Produto> procurarPorCategoria(String categoria){
-        return produtoRepository.findByCategoria(categoria);
+        String termoBusca = "%" + categoria + "%";
+        return produtoRepository.findByCategoria(termoBusca);
     }
 }
